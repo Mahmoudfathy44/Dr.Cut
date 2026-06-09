@@ -1,0 +1,162 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* ─── Google Fonts ─────────────────────────────────────────────────────────── */
+/* Handled by next/font/google in layout.tsx */
+
+/* ─── CSS Variables ────────────────────────────────────────────────────────── */
+:root {
+  --color-gold: #C9A84C;
+  --color-gold-light: #E8C97A;
+  --color-gold-dark: #A8852D;
+  --color-ink: #0A0A0A;
+  --color-ink-mid: #1A1A1A;
+  --color-cream: #F9F9F7;
+  --color-cream-warm: #F5F0E8;
+
+  /* Fonts are injected via CSS variables from layout.tsx */
+
+  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Base Reset ────────────────────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: #0A0A0A;
+  color: #F9F9F7;
+  font-family: var(--font-sans, sans-serif);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ─── Custom Scrollbar ──────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #111111;
+}
+::-webkit-scrollbar-thumb {
+  background: #C9A84C;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #E8C97A;
+}
+
+/* ─── Selection ────────────────────────────────────────────────────────────── */
+::selection {
+  background: rgba(201, 168, 76, 0.3);
+  color: #F9F9F7;
+}
+
+/* ─── Custom Components ─────────────────────────────────────────────────────── */
+@layer components {
+
+  /* Gold line divider */
+  .gold-line {
+    @apply w-16 h-px bg-gold mx-auto;
+  }
+
+  .gold-line-left {
+    @apply w-16 h-px bg-gold;
+  }
+
+  /* Section padding */
+  .section-pad {
+    @apply py-24 lg:py-32;
+  }
+
+  /* Max width container */
+  .container-xl {
+    @apply max-w-7xl mx-auto px-6 lg:px-8;
+  }
+
+  /* Premium card */
+  .card-premium {
+    @apply bg-ink-mid border border-ash/20 rounded-2xl overflow-hidden transition-all duration-400;
+    @apply hover:border-gold/40 hover:shadow-dark-lg;
+  }
+
+  /* Glass card */
+  .card-glass {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl;
+    @apply hover:bg-white/8 hover:border-gold/30 transition-all duration-400;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full;
+    @apply bg-gold text-ink font-semibold tracking-wide text-sm;
+    @apply transition-all duration-300;
+    @apply hover:bg-gold-light hover:shadow-gold-lg hover:scale-105;
+    @apply active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full;
+    @apply border border-gold/60 text-gold font-semibold tracking-wide text-sm;
+    @apply transition-all duration-300;
+    @apply hover:bg-gold/10 hover:border-gold hover:shadow-gold;
+    @apply active:scale-95;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full;
+    @apply text-cream/70 font-medium text-sm;
+    @apply transition-all duration-300;
+    @apply hover:text-cream hover:bg-white/5;
+  }
+
+  /* Section label */
+  .section-label {
+    @apply text-gold text-xs font-semibold tracking-widest uppercase;
+  }
+
+  /* Display heading */
+  .heading-display {
+    @apply font-display text-5xl lg:text-7xl text-cream leading-[1.05];
+  }
+
+  .heading-section {
+    @apply font-display text-3xl lg:text-5xl text-cream leading-tight;
+  }
+
+  /* Form inputs */
+  .input-field {
+    @apply w-full bg-ink-mid border border-ash/30 rounded-xl px-4 py-3.5;
+    @apply text-cream placeholder-ash-light text-sm;
+    @apply focus:outline-none focus:border-gold/60 focus:ring-1 focus:ring-gold/20;
+    @apply transition-all duration-300;
+  }
+
+  /* Gold gradient text */
+  .text-gold-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #C9A84C 0%, #E8C97A 50%, #A8852D 100%);
+  }
+}
+
+/* ─── Utilities ─────────────────────────────────────────────────────────────── */
+@layer utilities {
+  .bg-white\/8 { background-color: rgba(255,255,255,0.08); }
+
+  .text-balance { text-wrap: balance; }
+
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
