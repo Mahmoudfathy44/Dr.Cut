@@ -4,14 +4,16 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import { testimonials } from '@/lib/data';
+import { useT } from '@/lib/useT';
 
 export function TestimonialsSection() {
   const [current, setCurrent] = useState(0);
+  const { t } = useT();
 
   const prev = () => setCurrent((c) => (c - 1 + testimonials.length) % testimonials.length);
   const next = () => setCurrent((c) => (c + 1) % testimonials.length);
 
-  const t = testimonials[current];
+  const testimonial = testimonials[current];
 
   return (
     <section className="section-pad bg-ink-mid" id="testimonials">
@@ -23,9 +25,10 @@ export function TestimonialsSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="section-label mb-4 block">Client Stories</span>
+          <span className="section-label mb-4 block">{t.testimonials.label}</span>
           <h2 className="heading-section mb-4">
-            What Our <span className="text-gold-gradient italic">Clients Say</span>
+            {t.testimonials.heading1}{' '}
+            <span className="text-gold-gradient italic">{t.testimonials.heading2}</span>
           </h2>
           <div className="gold-line" />
         </motion.div>
@@ -48,7 +51,7 @@ export function TestimonialsSection() {
 
               {/* Stars */}
               <div className="flex justify-center gap-1 mb-6">
-                {Array.from({ length: t.rating }).map((_, i) => (
+                {Array.from({ length: testimonial.rating }).map((_, i) => (
                   <Star
                     key={i}
                     size={16}
@@ -60,7 +63,7 @@ export function TestimonialsSection() {
 
               {/* Review text */}
               <blockquote className="text-cream/90 text-lg leading-relaxed font-light italic mb-8 relative z-10">
-                &ldquo;{t.review}&rdquo;
+                &ldquo;{testimonial.review}&rdquo;
               </blockquote>
 
               {/* Divider */}
@@ -68,9 +71,9 @@ export function TestimonialsSection() {
 
               {/* Author */}
               <div>
-                <p className="text-cream font-semibold text-sm">{t.name}</p>
-                {t.branch && (
-                  <p className="text-ash-muted text-xs mt-1 tracking-wide">{t.branch}</p>
+                <p className="text-cream font-semibold text-sm">{testimonial.name}</p>
+                {testimonial.branch && (
+                  <p className="text-ash-muted text-xs mt-1 tracking-wide">{testimonial.branch}</p>
                 )}
               </div>
             </motion.div>

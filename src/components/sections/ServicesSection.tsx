@@ -7,8 +7,10 @@ import { Clock, Star, ArrowRight } from 'lucide-react';
 import { services } from '@/lib/data';
 import { formatPrice, formatDuration } from '@/lib/utils';
 import type { Service } from '@/types';
+import { useT } from '@/lib/useT';
 
 function ServiceCard({ service, index }: { service: Service; index: number }) {
+  const { t } = useT();
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -31,7 +33,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
         {service.popular && (
           <div className="absolute top-3 left-3 flex items-center gap-1 bg-gold/90 backdrop-blur-sm text-ink text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-full">
             <Star size={9} fill="currentColor" />
-            Popular
+            {t.services.popular}
           </div>
         )}
 
@@ -77,7 +79,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
           href={`/book?service=${service.id}`}
           className="flex items-center gap-2 text-gold text-xs font-semibold tracking-wide group/link"
         >
-          Book This Service
+          {t.services.bookService}
           <ArrowRight
             size={14}
             className="transition-transform duration-300 group-hover/link:translate-x-1"
@@ -89,6 +91,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
 }
 
 export function ServicesSection() {
+  const { t } = useT();
   const featured = services.filter((s) => s.popular).slice(0, 3);
 
   return (
@@ -102,14 +105,15 @@ export function ServicesSection() {
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <span className="section-label mb-4 block">What We Offer</span>
+          <span className="section-label mb-4 block">{t.services.label}</span>
           <h2 className="heading-section mb-4">
-            The <span className="text-gold-gradient italic">Dr Cut</span> Experience
+            {t.services.heading1}{' '}
+            <span className="text-gold-gradient italic">{t.services.heading2}</span>{' '}
+            {t.services.heading3}
           </h2>
           <div className="gold-line mb-6" />
           <p className="text-ash-light max-w-md mx-auto text-sm leading-relaxed">
-            From precision haircuts to full grooming rituals — every service
-            crafted to exceed expectations.
+            {t.services.description}
           </p>
         </motion.div>
 
@@ -128,7 +132,7 @@ export function ServicesSection() {
           className="text-center"
         >
           <Link href="/services" className="btn-secondary">
-            View All Services
+            {t.services.viewAll}
           </Link>
         </motion.div>
       </div>

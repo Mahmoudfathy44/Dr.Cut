@@ -1,9 +1,15 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { stats } from '@/lib/data';
+import { useT } from '@/lib/useT';
+import { useContext } from 'react';
+import { LanguageContext } from '@/app/LanguageProvider';
+import { translations, type Lang } from '@/lib/translations';
 
 export function StatsSection() {
+  const { lang } = useContext(LanguageContext);
+  const stats = translations[lang as Lang]?.stats ?? translations.en.stats;
+
   return (
     <section className="bg-ink-mid border-y border-ash/20 py-12">
       <div className="container-xl">

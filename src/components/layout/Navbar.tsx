@@ -4,19 +4,21 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Menu, X } from 'lucide-react';
-
-const navLinks = [
-  { label: 'Services', href: '/services' },
-  { label: 'Branches', href: '/branches' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
-];
+import { Menu, X, Globe } from 'lucide-react';
+import { useT } from '@/lib/useT';
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { t, lang, toggle } = useT();
+
+  const navLinks = [
+    { label: t.nav.services, href: '/services' },
+    { label: t.nav.branches, href: '/branches' },
+    { label: t.nav.about, href: '/about' },
+    { label: t.nav.contact, href: '/contact' },
+  ];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -45,7 +47,7 @@ export function Navbar() {
             </span>
             <span className="hidden sm:block w-px h-6 bg-ash/40" />
             <span className="hidden sm:block text-[10px] text-ash-light tracking-widest uppercase font-medium">
-              Premium Grooming
+              {t.nav.premiumGrooming}
             </span>
           </Link>
 
@@ -73,10 +75,24 @@ export function Navbar() {
             ))}
           </nav>
 
-          {/* CTA + Mobile Menu Toggle */}
-          <div className="flex items-center gap-4">
+          {/* CTA + Lang Toggle + Mobile Menu Toggle */}
+          <div className="flex items-center gap-3">
+            {/* Language Toggle Button */}
+            <button
+              onClick={toggle}
+              className={cn(
+                'flex items-center gap-1.5 text-xs font-medium tracking-wide px-3 py-1.5 rounded-full border transition-all duration-300',
+                'border-gold/40 text-gold hover:bg-gold/10 hover:border-gold'
+              )}
+              aria-label="Switch language"
+              title={lang === 'en' ? 'Switch to Arabic' : 'Switch to English'}
+            >
+              <Globe size={12} />
+              <span>{t.nav.switchLang}</span>
+            </button>
+
             <Link href="/book" className="btn-primary text-xs px-6 py-3 hidden sm:inline-flex">
-              Book Now
+              {t.nav.bookNow}
             </Link>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
@@ -117,8 +133,18 @@ export function Navbar() {
           className="btn-primary mt-4"
           style={{ transitionDelay: `${navLinks.length * 60}ms` }}
         >
-          Book Your Seat
+          {t.nav.bookYourSeat}
         </Link>
+
+        {/* Lang toggle in mobile menu */}
+        <button
+          onClick={toggle}
+          className="flex items-center gap-2 text-sm text-gold border border-gold/40 px-5 py-2 rounded-full hover:bg-gold/10 transition-all duration-300"
+          style={{ transitionDelay: `${(navLinks.length + 1) * 60}ms` }}
+        >
+          <Globe size={14} />
+          {t.nav.switchLang}
+        </button>
       </div>
     </>
   );

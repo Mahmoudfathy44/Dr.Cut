@@ -4,26 +4,14 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Award, Scissors, Star } from 'lucide-react';
-
-const pillars = [
-  {
-    icon: Scissors,
-    title: 'Master Barbers',
-    description: 'Each barber completes 200+ hours of training in precision cutting and grooming techniques.',
-  },
-  {
-    icon: Award,
-    title: 'Premium Products',
-    description: 'We use only the finest grooming products — curated from around the world.',
-  },
-  {
-    icon: Star,
-    title: 'The Dr Cut Standard',
-    description: 'Every visit is an experience. From the welcome to the final finish.',
-  },
-];
+import { useT } from '@/lib/useT';
 
 export function AboutSection() {
+  const { t } = useT();
+  const pillars = t.about.pillars;
+
+  const pillarIcons = [Scissors, Award, Star];
+
   return (
     <section className="section-pad bg-ink" id="about">
       <div className="container-xl">
@@ -54,9 +42,9 @@ export function AboutSection() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="absolute -bottom-6 -right-6 bg-gold p-6 rounded-2xl shadow-gold-lg"
             >
-              <p className="font-display text-3xl text-ink font-bold">7+</p>
-              <p className="text-ink/70 text-xs font-medium mt-1">Years of</p>
-              <p className="text-ink text-sm font-semibold">Excellence</p>
+              <p className="font-display text-3xl text-ink font-bold">{t.about.years}</p>
+              <p className="text-ink/70 text-xs font-medium mt-1">{t.about.yearsLabel}</p>
+              <p className="text-ink text-sm font-semibold">{t.about.yearsLabel2}</p>
             </motion.div>
 
             {/* Gold border accent */}
@@ -70,54 +58,52 @@ export function AboutSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="section-label mb-4 block">Our Story</span>
+            <span className="section-label mb-4 block">{t.about.label}</span>
             <h2 className="heading-section mb-6">
-              The Art of the
+              {t.about.heading1}
               <br />
-              <span className="text-gold-gradient italic">Perfect Cut</span>
+              <span className="text-gold-gradient italic">{t.about.heading2}</span>
             </h2>
             <div className="gold-line-left mb-8" />
 
             <p className="text-ash-light text-base leading-relaxed mb-6">
-              Dr Cut was born from a simple belief: every man deserves to look
-              and feel extraordinary. Since 2017, we&apos;ve redefined what a
-              barbershop experience can be — combining old-world craft with
-              modern luxury.
+              {t.about.para1}
             </p>
             <p className="text-ash-light text-base leading-relaxed mb-12">
-              From our flagship location in Riyadh to our growing presence across
-              the Kingdom, Dr Cut remains committed to one thing: the perfect
-              finish, every time.
+              {t.about.para2}
             </p>
 
             {/* Pillars */}
             <div className="space-y-6">
-              {pillars.map((pillar, i) => (
-                <motion.div
-                  key={pillar.title}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.1 * i }}
-                  className="flex items-start gap-4"
-                >
-                  <div className="p-2.5 rounded-xl bg-gold/10 border border-gold/20 flex-shrink-0 mt-0.5">
-                    <pillar.icon size={16} className="text-gold" />
-                  </div>
-                  <div>
-                    <h3 className="text-cream font-semibold text-sm mb-1">
-                      {pillar.title}
-                    </h3>
-                    <p className="text-ash-light text-sm leading-relaxed">
-                      {pillar.description}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
+              {pillars.map((pillar, i) => {
+                const Icon = pillarIcons[i];
+                return (
+                  <motion.div
+                    key={pillar.title}
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.1 * i }}
+                    className="flex items-start gap-4"
+                  >
+                    <div className="p-2.5 rounded-xl bg-gold/10 border border-gold/20 flex-shrink-0 mt-0.5">
+                      <Icon size={16} className="text-gold" />
+                    </div>
+                    <div>
+                      <h3 className="text-cream font-semibold text-sm mb-1">
+                        {pillar.title}
+                      </h3>
+                      <p className="text-ash-light text-sm leading-relaxed">
+                        {pillar.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
 
             <Link href="/about" className="btn-secondary mt-10 inline-flex">
-              Learn More About Us
+              {t.about.learnMore}
             </Link>
           </motion.div>
         </div>

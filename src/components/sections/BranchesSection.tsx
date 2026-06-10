@@ -6,8 +6,10 @@ import Link from 'next/link';
 import { MapPin, Clock, ArrowRight } from 'lucide-react';
 import { branches } from '@/lib/data';
 import type { Branch } from '@/types';
+import { useT } from '@/lib/useT';
 
 function BranchCard({ branch, index }: { branch: Branch; index: number }) {
+  const { t } = useT();
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -28,7 +30,7 @@ function BranchCard({ branch, index }: { branch: Branch; index: number }) {
 
         {branch.featured && (
           <div className="absolute top-3 left-3 bg-gold text-ink text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-full">
-            Flagship
+            {t.branches.flagship}
           </div>
         )}
       </div>
@@ -46,7 +48,7 @@ function BranchCard({ branch, index }: { branch: Branch; index: number }) {
           </div>
           <div className="flex items-center gap-2.5 text-ash-light text-sm">
             <Clock size={13} className="text-gold flex-shrink-0" />
-            <span>مفتوح حتي 10 مساءً</span>
+            <span>{t.branches.openUntil}</span>
           </div>
         </div>
 
@@ -55,7 +57,7 @@ function BranchCard({ branch, index }: { branch: Branch; index: number }) {
             href={`/book?branch=${branch.id}`}
             className="btn-primary text-xs px-5 py-2.5 flex-1 justify-center"
           >
-            احجز الان
+            {t.branches.bookNow}
           </Link>
           <Link
             href={`/branches/${branch.slug}`}
@@ -70,6 +72,7 @@ function BranchCard({ branch, index }: { branch: Branch; index: number }) {
 }
 
 export function BranchesSection() {
+  const { t } = useT();
   return (
     <section className="section-pad bg-ink" id="branches">
       <div className="container-xl">
@@ -81,14 +84,16 @@ export function BranchesSection() {
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <span className="section-label mb-4 block">Find Us</span>
+          <span className="section-label mb-4 block">{t.branches.label}</span>
           <h2 className="heading-section mb-4">
-            Our <span className="text-gold-gradient italic">Locations</span>
+            {t.branches.heading1}{' '}
+            {t.branches.heading2 && (
+              <span className="text-gold-gradient italic">{t.branches.heading2}</span>
+            )}
           </h2>
           <div className="gold-line mb-6" />
           <p className="text-ash-light max-w-md mx-auto text-sm leading-relaxed">
-            Four premium locations across the Kingdom. Each designed to deliver
-            the same standard of excellence.
+            {t.branches.description}
           </p>
         </motion.div>
 
@@ -107,7 +112,7 @@ export function BranchesSection() {
           className="text-center"
         >
           <Link href="/branches" className="btn-secondary">
-            View All Branches
+            {t.branches.viewAll}
           </Link>
         </motion.div>
       </div>

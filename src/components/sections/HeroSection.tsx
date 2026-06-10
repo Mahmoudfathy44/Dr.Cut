@@ -4,9 +4,11 @@ import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+import { useT } from '@/lib/useT';
 
 export function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const { t } = useT();
 
   useEffect(() => {
     if (videoRef.current) {
@@ -44,7 +46,7 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <span className="section-label mb-6 block">Est. 2017 · Saudi Arabia</span>
+          <span className="section-label mb-6 block">{t.hero.established}</span>
         </motion.div>
 
         <motion.h1
@@ -70,9 +72,9 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 1.0 }}
           className="text-cream/70 text-lg sm:text-xl max-w-lg mx-auto mb-12 leading-relaxed"
         >
-          Where precision meets luxury.
+          {t.hero.tagline}
           <br className="hidden sm:block" />
-          The premium grooming experience you deserve.
+          {t.hero.tagline2}
         </motion.p>
 
         <motion.div
@@ -82,10 +84,10 @@ export function HeroSection() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Link href="/book" className="btn-primary">
-            Book Your Seat
+            {t.hero.bookSeat}
           </Link>
           <Link href="/services" className="btn-secondary">
-            Explore Services
+            {t.hero.exploreServices}
           </Link>
         </motion.div>
       </div>
@@ -97,7 +99,7 @@ export function HeroSection() {
         transition={{ delay: 2, duration: 1 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <span className="text-ash-muted text-[10px] tracking-widest uppercase">Scroll</span>
+        <span className="text-ash-muted text-[10px] tracking-widest uppercase">{t.hero.scroll}</span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}

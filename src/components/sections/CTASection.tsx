@@ -2,8 +2,10 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useT } from '@/lib/useT';
 
 export function CTASection() {
+  const { t } = useT();
   return (
     <section className="relative overflow-hidden py-32">
       {/* Background */}
@@ -28,23 +30,22 @@ export function CTASection() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <span className="section-label mb-6 block">Ready?</span>
+          <span className="section-label mb-6 block">{t.cta.label}</span>
           <h2 className="font-display text-5xl sm:text-6xl lg:text-7xl text-cream leading-tight mb-6">
-            Book Your{' '}
-            <span className="text-gold-gradient italic">Seat</span>
+            {t.cta.heading1}{' '}
+            <span className="text-gold-gradient italic">{t.cta.heading2}</span>
           </h2>
           <div className="gold-line mb-8" />
           <p className="text-ash-light text-lg max-w-md mx-auto mb-12 leading-relaxed">
-            Reserve your spot at any Dr Cut location. Walk in as you are.
-            Walk out looking your best.
+            {t.cta.description}
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link href="/book" className="btn-primary text-base px-10 py-5">
-              Book Your Seat
+              {t.cta.bookSeat}
             </Link>
             <Link href="/branches" className="btn-ghost text-base">
-              Find a Branch Near You
+              {t.cta.findBranch}
             </Link>
           </div>
         </motion.div>
